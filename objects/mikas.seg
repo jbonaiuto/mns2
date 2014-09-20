@@ -1,0 +1,54 @@
+#hand model with 2*5+1 joint freedoms.
+
+# Eye is optionally specifies suggested Fz, F, and scale values for projection
+# above is old not used
+# this gives a lens at 0,0,-1000 looking at 0,0,0 with mag=1500
+Eye 0 3000 1000
+
+# Feb 9,2000: Parents can be referenced with either ID or label
+# Note that the base of the fingers are fixed joints! Thus base+1 base+2
+# are flexible joints.  wrist is flexible too.
+# note that JointPos LimbPos JointAxis are index to Points (starting from 1)
+# ID must be greater than 0. A zero parent means null parent
+# * jointAxis is actually is the cross product of the limb with the value given
+# under JointAxis.
+#  AxisType=0 (or jointaxis=(0,0,0) ) means fixed joint.
+#  AxisType=-1 means that the JointAxis given is not actually the joint axis; 
+#  to get the real joint axis a cross product of the axis with 
+#  (jointpos-limbpos) is performed..
+#  AxisType=1 means the JointAxis field IS actually the joint axis.
+
+Limbs
+
+#LABEL    JointPos    LimbPos    JointAxis JType Parent
+
+BASE      313 70  0   313 70 0    0 0 0    0        -1  
+ARM         0  0  0     0  0 0    0 0 1    1       BASE
+WRISTy      0  0  0     0  0 0    0 1 0    1       ARM
+WRISTz      0  0  0     0  0 0    0 0 1    1       WRISTy
+WRISTx      0  0  0     0  0 0    1 0 0    1       WRISTz
+          Points
+           396  214 0
+           258  226 0
+           313   70 0 
+           313   71 0 
+          EndPoints
+
+PINKY       0   0 0    83 144 0   0 0 1   -1       WRISTx 
+PINKY1     83 144 0   115 189 0   0 0 1   -1       PINKY 
+PINKY2    115 189 0   154 239 0   0 0 1   -1       PINKY1 
+RING        0  0 0     45 152 0   0 0 1   -1       WRISTx
+RING1      45 152 0    67 243 0   0 0 1   -1       RING
+RING2      67 243 0    97 322 0   0 0 1   -1       RING1
+MIDDLE      0  0  0      0 159 0     0 0 1   -1       WRISTx
+MIDDLE1     0 159  0     5 267 0     0 0 1   -1       MIDDLE
+MIDDLE2     5 267  0    16 356 0     0 0 1   -1       MIDDLE1
+
+INDEX       0   0  0   -55 226 0     0 0 1   -1     WRISTx
+INDEX1    258 226  0   -71 313 0    0 0 1   -1      INDEX
+INDEX2    242 313  0   -80 389 0    0 0 1   -1      INDEX1
+THUMB       0   0  0   -55  80 0    0 -1 0    1    WRISTx
+THUMBin   258  80 0    -153  80 0    0 0 1    1    THUMB
+THUMB2    160  80 0     50  80 0    0 -1 0    1    THUMBin
+
+

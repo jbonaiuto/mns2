@@ -1,0 +1,36 @@
+#box model with  1 joint freedoms.
+
+#  AxisType=0 (or jointaxis=(0,0,0) ) means fixed joint.
+#  AxisType=-1 means that the JointAxis given is not actually the joint axis;
+#  to get the real joint axis a cross product of the axis with
+#  (jointpos-limbpos) is performed..
+#  AxisType=1 means the JointAxis field IS actually the joint axis.
+
+Limbs
+
+#LABEL    JointPos    LimbPos   JointAxis JType Parent
+
+BASE       0 0 0       200   0 0     0 0 1    1  -1
+HANDLE1       0 0 0         0 -350 0     0 0 1    1  BASE 
+HANDLE2       0 0 0      -200   0 0     0 0 1    1  HANDLE1
+          Points
+           -600 -200 -230
+           -200 -200 -230
+           -200  450 -230
+           -600  450 -230
+
+           -600 -200  230
+           -200 -200  230
+           -200  450  230
+           -600  450 230
+          EndPoints
+Planes
+HANDLE2 0 HANDLE2 1 HANDLE2 2 HANDLE2 3
+HANDLE2 4 HANDLE2 5 HANDLE2 6 HANDLE2 7
+HANDLE2 0 HANDLE2 4 HANDLE2 5 HANDLE2 1
+#this is top
+HANDLE2 2 HANDLE2 6 HANDLE2 7 HANDLE2 3
+HANDLE2 0 HANDLE2 4 HANDLE2 7 HANDLE2 3
+HANDLE2 1 HANDLE2 5 HANDLE2 6 HANDLE2 2
+
+

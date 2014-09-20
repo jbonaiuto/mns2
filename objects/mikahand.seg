@@ -1,0 +1,94 @@
+#hand model with 2*5+1 joint freedoms.
+
+# Eye is optionally specifies suggested Fz, F, and scale values for projection
+# above is old not used
+# this gives a lens at 0,0,-1000 looking at 0,0,0 with mag=1500
+Eye 0 3000 1000
+
+# Feb 9,2000: Parents can be referenced with either ID or label
+# Note that the base of the fingers are fixed joints! Thus base+1 base+2
+# are flexible joints.  wrist is flexible too.
+# note that JointPos LimbPos JointAxis are index to Points (starting from 1)
+# ID must be greater than 0. A zero parent means null parent
+# * jointAxis is actually is the cross product of the limb with the value given
+# under JointAxis.
+#  AxisType=0 (or jointaxis=(0,0,0) ) means fixed joint.
+#  AxisType=-1 means that the JointAxis given is not actually the joint axis; 
+#  to get the real joint axis a cross product of the axis with 
+#  (jointpos-limbpos) is performed..
+#  AxisType=1 means the JointAxis field IS actually the joint axis.
+
+Limbs
+
+#LABEL    JointPos    LimbPos    JointAxis JType Parent
+
+BASE      313 70  0   313 70 0    0 0 0    0        -1  
+ARM       313 70  0   313 70 0    0 0 1    1       BASE
+WRISTy    313 70  0   313 70 0    0 1 0    1       ARM
+WRISTz    313 70  0   313 70 0    0 0 1    1       WRISTy
+WRISTx    313 70  0   313 70 0    1 0 0    1       WRISTz
+          Points
+           396  214 0
+           258  226 0
+           313   70 0 
+           313   71 0 
+          EndPoints
+
+PINKY     313 70 0    396 214 0   0 0 1   -1       WRISTx 
+PINKY1    396 214 0   428 259 0   0 0 1   -1       PINKY 
+PINKY2    428 259 0   467 309 0   0 0 1   -1       PINKY1 
+          Points
+          =.00   300 300 100
+          =.01   300 400 100
+          =.02   400 400 100 
+          =.03   400 300 100 
+
+          =.04   300 300 200
+          =.05   300 400 200
+          =.06   400 400 200 
+          =.07   400 300 200 
+           EndPoints
+
+RING      313 70 0    358 222 0   0 0 1   -1       WRISTx
+RING1     358 222 0   380 313 0   0 0 1   -1       RING
+RING2     380 313 0   410 392 0   0 0 1   -1       RING1
+MIDDLE    313 70  0    313 229 0     0 0 1   -1       WRISTx
+MIDDLE1   313 229  0   318 337 0     0 0 1   -1       MIDDLE
+MIDDLE2   318 337  0   329 426 0     0 0 1   -1       MIDDLE1
+
+INDEX     325  70  0   258 226 0     0 0 1   -1     WRISTx
+          Points
+          =.02   258 226 000 
+          EndPoints
+INDEX1    258 226  0   242 313 0    0 0 1   -1      INDEX
+          Points
+          =.01   242 313 000
+          EndPoints
+INDEX2    242 313  0   233 389 0    0 0 1   -1      INDEX1
+          Points
+          =.00   233 389 000
+          EndPoints
+
+THUMB     258  80  0   258  80 0    0 -1 0    1    WRISTx
+THUMBin   258  80 0    160  80 0    0 0 1    1    THUMB
+THUMB2    160  80 0     50  80 0    0 -1 0    1    THUMBin
+          Points
+          =.00   122 152 000
+          EndPoints
+
+## Planes
+## # WRISTx 0 WRISTx 1 WRISTx 2 WRISTx 3
+## 
+###  INDEX2 0 INDEX1 0 INDEX  0 THUMB2 0
+
+## #from and back of the cube
+##  PINKY2 0 PINKY2 1 PINKY2 2 PINKY2 3
+##  PINKY2 4 PINKY2 5 PINKY2 6 PINKY2 7
+## #
+## PINKY2 0 PINKY2 1 PINKY2 5 PINKY2 4
+##  PINKY2 3 PINKY2 2 PINKY2 6 PINKY2 7
+#
+## PINKY2 1 PINKY2 5 PINKY2 6 PINKY2 2
+## PINKY2 0 PINKY2 4 PINKY2 7 PINKY2 3
+
+

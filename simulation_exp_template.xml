@@ -1,0 +1,218 @@
+<!--
+A simulation experiment
+-->
+<SimulationExperiment>
+    <!--directory relative to this file where output files will be placed-->
+    <BaseDir></BaseDir>
+    <!--MDS diagrams to generate-->
+    <MDS-Definitions>
+        <!--MDS diagram definition-->
+        <MDS>
+            <!--Name of the MDS diagram-->
+            <Name>string</Name>
+            <!--Trials included in the MDS diagram-->
+            <Trials>
+                <!--Name of the trial-->
+                <Trial>string</Trial>
+            </Trials>
+        </MDS>
+    </MDS-Definitions>
+    <!--Simulations to run-->
+    <Simulations>
+        <!--Simulation definition-->
+        <Simulation>
+            <Object>
+                <!--Name of the object-->
+                <Name>string</Name>
+                <!--Position of the object in cartesian coordinates when the simulation begins-->
+                <Position>
+				    <x>double</x>
+				    <y>double</y>
+				    <z>double</z>
+			    </Position>
+                <!--Tilt of the object (in radians)-->
+                <Tilt>double</Tilt>
+                <!--Whether or not an object is visible while a grasp is planned (TODO: otherwise pantomime)-->
+                <Visible>boolean</Visible>
+            </Object>
+            <Obstacle>
+                <!--Name of the obstacle object. Omit this tag if there is no obstacle-->
+                <Name>string</Name>
+                <!--Position of the obstacle in cartesian coordinates when the simulation begins-->
+                <Position>
+                    <x>double</x>
+                    <y>double</y>
+                    <z>double</z>
+                </Position>
+                <!--Tilt of the obstacle (in radians)-->
+                <Tilt>double</Tilt>
+                <!--Whether or not the obstacle is visible while the grasp is planned-->
+                <Visible>boolean</Visible>
+            </Obstacle>
+            <Other>
+                <!--Initial joint angles of the other. Omitted joint angles will be initialized to their default values-->
+                <JointAngles>
+                    <!--Joint angle definition-->
+                    <Joint>
+                        <!--Name of the joint-->
+                        <name>string</name>
+                        <!--Initial joint angle in degrees-->
+                        <angle>double</angle>
+                    </Joint>
+                </JointAngles>
+                <!--Whether or not the other arm is visible-->
+                <Visible>boolean</Visible>
+            </Other>
+            <Self>
+                <!--Initial joint angles of the self. Omitted joint angles will be initialized to their default values-->
+                <JointAngles>
+                    <!--Joint angle definition-->
+                    <Joint>
+                        <!--Name of the joint-->
+                        <name>string</name>
+                        <!--Initial joint angle in degrees-->
+                        <angle>double</angle>
+                    </Joint>
+                </JointAngles>
+                <!--Whether or not the self arm is visible-->
+                <Visible>boolean</Visible>
+            </Self>
+            <!--Camera view-->
+            <View>
+                <f>
+                    <x>double</x>
+                    <y>double</y>
+                    <z>double</z>
+                </f>
+                <x>
+                    <x>double</x>
+                    <y>double</y>
+                    <z>double</z>
+                </x>
+                <y>
+                    <x>double</x>
+                    <y>double</y>
+                    <z>double</z>
+                </y>
+                <z>
+                    <x>double</x>
+                    <y>double</y>
+                    <z>double</z>
+                </z>
+                <zoom>double</zoom>
+            </View>
+            <!--Simulation trials to perform-->
+            <Trials>
+                <!--Simulation trial definition-->
+                <Trial>
+                    <!--Name of the trial-->
+                    <TrialName>string</TrialName>
+                    <Output>
+                        <Simulation>
+                            <!--Whether or not to record an image of each frame of the simulation trial-->
+                            <Record>boolean</Record>
+                            <!--What file format to write frame images to-->
+                            <Format>gif|ppm</Format>
+                        </Simulation>
+                        <Network>
+                            <!--Whether or not to record the activity of the network-->
+                            <Record>boolean</Record>
+                        </Network>
+                    </Output>
+                    <Object>
+                        <!--Visibility of the object-->
+                        <Visible>boolean</Visible>
+                        <!--Position of the object in cartesian coordinates when the grasp is executed for recognition-->
+                        <Position>
+                            <x>double</x>
+                            <y>double</y>
+                            <z>double</z>
+                        </Position>
+                        <!--Tilt of the object (in radians)-->
+                        <Tilt>double</Tilt>
+                    </Object>
+                    <Obstacle>
+                        <!--Visibility of the obstacle-->
+                        <Visible>boolean</Visible>
+                        <!--Position of the obstacle in cartesian coordinates when the grasp is executed for recognition-->
+                        <Position>
+                            <x>double</x>
+                            <y>double</y>
+                            <z>double</z>
+                        </Position>
+                        <!--Tilt of the object (in radians)-->
+                        <Tilt>double</Tilt>
+                    </Obstacle>
+                    <Grasp>
+                        <Sound>
+                            <!--Audibility of the grasp-->
+                            <Audible>boolean</Audible>
+                            <!--Whether or not the sound fits the action-->
+                            <Congruent>boolean</Congruent>
+                        </Sound>
+                        <!--Whether or not the final component of the grasp is visible-->
+                        <Hidden>boolean</Hidden>
+                        <!--Speed at which to perform the grasp-->
+                        <Speed>1-10</Speed>
+                        <!--Type of imitation to perform. If omitted, no imitation will be performed-->
+                        <ImitationType>direct|indirect|natural</ImitationType>
+                    </Grasp>
+                    <Other>
+                        <!--Visibility of the other-->
+                        <Visible>boolean</Visible>
+                    </Other>
+                    <Self>
+                        <!--Visibility of the self-->
+                        <Visible>boolean</Visible>
+                        <Network>
+                            <!--Learning rule to use for grasp recognition-->
+                            <LearningRule>Hebbian|BP|BPTT|BPTTwithHebbian</LearningRule>
+                            <!--Lesions to perform on the network-->
+                            <Lesions>
+                                <!--Lesion definition-->
+                                <Lesion>
+                                    <!--From layer-->
+                                    <Connection>audio|recurrent|inputToHidden|hiddenToOutput|teacherToOutput</Connection>
+                                    <!--When to lesion-->
+                                    <Time>preGrasp|graspStatic</Time>
+                                </Lesion>
+                            </Lesions>
+                            <!--Whether or not to perform dynamic remapping on the hand state-->
+                            <DynamicRemapping>boolean</DynamicRemapping>
+                            <!--Point on the arm used for dynamic remapping-->
+                            <RemappingPoint>forearm|elbow|arm</RemappingPoint>
+                            <!--Weight file to use for grasp recognition-->
+                            <WeightFile>filename</WeightFile>
+                            <!--Weight file to use for sound recognition-->
+                            <SoundWeightFile>filename</SoundWeightFile>
+                        </Network>
+                    </Self>
+                    <!--Screenshots to take. TODO: allow time step specification-->
+                    <Screenshots>
+                        <!--Time to take screenshot-->
+                        <Screenshot>post</Screenshot>
+					</Screenshots>
+                    <!--Plots to record-->
+                    <Plots>
+                        <!--Plot definition-->
+                        <Plot>
+                            <!--Network to plot from-->
+                            <network>main|audio</network>
+                            <!--Name of the plot-->
+                            <name>string</name>
+                            <!--Dimensionality of the data-->
+                            <dimensions>int</dimensions>
+                            <!--Extra gnuplot commands-->
+                            <extracommand>string</extracommand>
+                            <!--Plot data labels-->
+                            <labels>
+                                <!--Data series label-->
+								<label>string</label>
+							</labels>
+						</Plot>
+					</Plots>
+                </Trial>
+            </Trials>
+        </Simulation>
+    </Simulations>
+</SimulationExperiment>
